@@ -1,0 +1,146 @@
+.App {
+  text-align: center;
+  background-color: beige;
+  width: 225px;
+  height: 400px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+.rooms-menu-page,
+.add-room-page,
+.one-room-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 343.27px;
+}
+
+
+.rooms-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 185px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.room-button {
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 25px 0 25px 25px;
+  margin: 5px;
+  font-size: 30px;
+  padding: 0px;
+  text-transform: uppercase;
+  color: #2f4859;
+  font-style: italic;
+}
+
+
+.add-room-menu {
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+}
+
+.add-room-bar {
+  width: 185px;
+  padding: 8px;
+  font-size: medium;
+  border: 1px solid #85a2b6;
+  border-radius: 25px;
+  color: rgb(207, 0, 0);
+  display: flex;
+  flex-direction: column;
+}
+
+.add-room-bar:focus {
+  outline: 2px solid #85a2b6;
+}
+
+::placeholder {
+  color: rgba(207, 0, 0, 0.455)
+}
+
+.add-room-select {
+  width: 204px;
+  height: 38px;
+}
+
+a {
+  height: 120px;
+}
+
+.one-room-page>div>div>a {
+  width: 20px;
+  height: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.device-in-room-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  height: 147px;
+}
+
+.device {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 25px 25px 25px 0px;
+  margin: 5px;
+  font-size: 8px;
+  padding: 0px;
+  text-transform: uppercase;
+  color: #2f4859;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.one-room-title {
+  font-size: 20px;
+  color: rgb(207, 0, 0);
+  font-style: italic;
+  text-transform: uppercase;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 20px;
+
+}
+
+#deviceListSelect {
+  width: 130px;
+  padding: 5px;
+  margin: 5px;
+  font-size: medium;
+  border: 1px solid #85a2b6;
+  border-radius: 25px;
+  color: rgb(207, 0, 0);
+  display: flex;
+  flex-direction: column;
+}
+
+#deviceListSelect:focus {
+  outline: 2px solid #85a2b6;
+}
+
+
+.one-room-container1 {
+  margin: none;
+  padding: none;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
