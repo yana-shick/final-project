@@ -106,7 +106,7 @@ function App() {
           <Title />
           <Routes>
             {/* main page */}
-            <Route path='/' element={<RoomsMenu />}></Route>
+            <Route path='/final-project' element={<RoomsMenu />}></Route>
             {/* add room page */}
             <Route path='/addroom' element={<AddRoom />}></Route>
             {/* page for each room */}

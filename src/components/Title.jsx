@@ -8,7 +8,7 @@ export default function Title() {
         <div className="title">
             <div className='row'>
                 <div className="title-name col-12">
-                    <Link to='/'>
+                    <Link to='/final-project'>
                         <i class="bi bi-house-heart" >     </i>
                         smart home
                     </Link>

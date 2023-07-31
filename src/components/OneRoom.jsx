@@ -85,7 +85,7 @@ export default function OneRoom(props) {
           <div className="one-room-erase-button"
             onClick={() => {
               data.eraseRoomFunc(props.roomId);
-              nav('/');
+              nav('/final-project');
             }}>
             <i class="fa fa-trash-o"></i>
           </div>
