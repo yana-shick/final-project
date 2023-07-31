@@ -1,75 +1,103 @@
 import React from 'react'
 import DeviseInRoom from './DeviseInRoom';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Home from './img/home.svg';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Context } from '../context';
+
+
 import Plus from './img/plus-solid.svg';
 import Add from './img/add.svg';
 
 export default function OneRoom(props) {
+  //use context - all my values and functions from App page
+  const data = useContext(Context);
 
+  const nav = useNavigate();
 
-  //hook for show/hode device select tag && show/hide plusIcon
+  //hook for show/hide device select tag && show/hide plusIcon
   const [isDeviceListShown, setIsDeviceListShown] = useState([false, 'block']);
 
   const showDeviceAndAdd = () => {
     if (isDeviceListShown[0]) {
-      if (props.room.deviceArr.length == 5) {
+      if (props.room.deviceArr.length == 6) {
         return alert("you can't add more devices");
       }
-      let deviceList = [];
+      let deviceListRepresent = [];
       let isExistStereo = false;
       props.room.deviceArr.forEach((device) => {
         if (device.type == 'stereo system') {
           isExistStereo = true;
         }
       })
+      // define what list of devises to represent according to a rools
       if (props.room.type == 'bathroom' && !isExistStereo) {
-        deviceList = props.deviceListRules[0];
+        deviceListRepresent = data.deviceListRules[0];
       } else if (props.room.type == 'bathroom' && isExistStereo) {
-        deviceList = props.deviceListRules[1];
+        deviceListRepresent = data.deviceListRules[1];
       } else if (props.room.type != 'bathroom' && !isExistStereo) {
-        deviceList = props.deviceListRules[2];
+        deviceListRepresent = data.deviceListRules[2];
       } else if (props.room.type != 'bathroom' && isExistStereo) {
-        deviceList = props.deviceListRules[3];
+        deviceListRepresent = data.deviceListRules[3];
       }
 
       return (
-        <div>
-          <select id='deviceListSelect'>
-            {
-              deviceList.map((device) => {
-                return <option value={device}>{device}</option>
-              })}
-          </select>
-          <div style={{ border: 'none', backgroundColor: 'none', padding: '0px', height: '120px' }} onClick={() => {
+        <div className="container">
+          {/* select a device */}
+          <div className='row justify-content-center'>
+            <div className='col col-7'>
+              <select className="form-select" id='deviceListSelect'>
+                {deviceListRepresent.map((device) => {
+                  return <option value={device}>{device}</option>
+                })}
+              </select>
+            </div>
+          </div>
+          {/* Add button */}
+          <div className="one-room-add-button" onClick={() => {
             let choosenDevice = document.getElementById('deviceListSelect').value;
-            props.addDevice(choosenDevice, props.roomId);
-            setIsDeviceListShown([false, 'block']);
-          }}><img src={Add} alt="Add" /></div>
+            data.addDeviceFunc(choosenDevice, props.roomId);
+            if (props.room.deviceArr.length == 6) {
+              //if there is 6 devises hide add-plus button
+              setIsDeviceListShown([false, 'none']);
+            } else {
+              setIsDeviceListShown([false, 'block']);
+            }
+          }}>
+            <img src={Add} alt="Add" />
+          </div>
         </div >
       )
     }
-
   }
 
   return (
     <div className='one-room-page'>
 
-      <div className='one-room-container1'>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          {/* go to home page icon */}
-          <Link to='/'><img src={Home} alt=" HomeIcon" /></Link>
-          <div className='one-room-title'>{props.room.name} {props.room.type}</div>
+      <div className='one-room-top'>
+        {/* Room Name */}
+        <div className='one-room-header'>
+          <div className='one-room-name'>
+            <span>{props.room.name}</span>
+            {props.room.type}
+          </div>
+          {/* delete Button */}
+          <div className="one-room-erase-button"
+            onClick={() => {
+              data.eraseRoomFunc(props.roomId);
+              nav('/');
+            }}>
+            <i class="fa fa-trash-o"></i>
+          </div>
         </div>
         {/* show all devices that user choosed */}
-        <DeviseInRoom choosenDevices={props.room.deviceArr} />
+        <DeviseInRoom devisesInRoom={props.room.deviceArr} roomId={props.roomId} setIsDeviceListShown={setIsDeviceListShown} />
       </div>
 
       {showDeviceAndAdd()}
+      {/* add-Plus Button */}
       <img style={{ display: isDeviceListShown[1] }} onClick={() => (setIsDeviceListShown([true, 'none']))} src={Plus} alt="PlusIcon" />
-
-    </div>
+    </div >
 
   )
 }

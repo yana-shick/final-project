@@ -8,6 +8,15 @@ import RoomsMenu from './components/RoomsMenu';
 import OneRoom from './components/OneRoom';
 import AddRoom from './components/AddRoom';
 
+import { Context } from './context';
+
+// user can add maximum 6 devices to a room
+// in each room only one stereo system
+// boiler only for bathroom
+
+//user can create maximum 6 rooms
+
+const roomColorList = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
 const roomTypeList = ['badroom', 'bathroom', 'kitchen'];
 
@@ -18,34 +27,30 @@ const deviceListShortElse = ['central air', 'lamp'];
 
 const deviceListRules = [deviceListBath, deviceListShortBath, deviceListElse, deviceListShortElse]
 
-
-let activeColor = 'red';
-let inactiveColor = 'green';
-
 class Room {
   deviceArr = [];
   constructor(type, name, color) {
     this.type = type;
     this.name = name;
-    this.color = color;
-    this.pathName = `/room_${this.name}`
+    this.color = `var(--${color})`;
+    this.pathName = `/room_${this.name}`;
   }
 }
 
 class Device {
   isActivated = false;
-  backgroundColor = inactiveColor;
+  backgroundColor = `var(--inactive)`;
   constructor(type) {
     this.type = type;
   }
   activate = () => {
     if (!this.isActivated) {
       this.isActivated = true;
-      this.backgroundColor = activeColor;
+      this.backgroundColor = `var(--active)`;
     }
     else {
       this.isActivated = false;
-      this.backgroundColor = inactiveColor;
+      this.backgroundColor = `var(--inactive)`;
     }
   }
 }
@@ -53,35 +58,66 @@ class Device {
 
 function App() {
 
-  const [userRoomArr, setUserRoomArr] = useState([]); // all rooms than user created
+  const [userRoomArr, setUserRoomArr] = useState([]); // all rooms that user created
 
-  const addRoomFunc = (type, name, color) => { // user creats new room from page /addroom componenta AddRoom
+  // user creats new room from page /addroom componenta AddRoom
+  const addRoomFunc = (type, name, color) => {
     let room = new Room(type, name, color);
     setUserRoomArr([...userRoomArr, room]); // add room to userRoomArr
   }
-
-  const addDevice = (type, roomId) => { // user add devise from page /room+name componenta OneRoom
+  // user add devise from page /room+name componenta OneRoom
+  const addDeviceFunc = (type, roomId) => {
     let device = new Device(type);
-    userRoomArr[roomId].deviceArr.push(device); // 
+    userRoomArr[roomId].deviceArr.push(device); // add device to a room
+  }
+  //user delets room from componenta OneRoom
+  const eraseRoomFunc = (roomId) => {
+    let temp = [...userRoomArr];
+    temp.splice(roomId, 1);
+    console.log('deleted');
+    setUserRoomArr([...temp]);
+  }
+  //user delets room from componenta DeviseInRoom
+  const deleteDevice = (deviseId, roomId) => {
+    let temp = [...userRoomArr];
+    temp[roomId].deviceArr.splice(deviseId, 1);
+    setUserRoomArr([...temp]);
   }
 
+  const data = {
+    addRoomFunc,
+    addDeviceFunc,
+    eraseRoomFunc,
+    setUserRoomArr,
+    deleteDevice,
+    userRoomArr,
+    roomColorList,
+    roomTypeList,
+    deviceListRules,
+    test: 'test'
+  }
 
   return (
-    <div className="App">
-      <Title />
-      <BrowserRouter>
-        <Routes>
+    <div className="App container p-4">
 
-          <Route path='/' element={<RoomsMenu userRoomArr={userRoomArr} />}></Route>
-          <Route path='/addroom' element={<AddRoom roomTypeList={roomTypeList} addRoomFunc={addRoomFunc} />}></Route>
+      <Context.Provider value={data}>
 
-          {userRoomArr.map((room, id) => {
-            return <Route path={room.pathName} element={<OneRoom room={room}
-              roomId={id} deviceListRules={deviceListRules} addDevice={addDevice} />}></Route>
-          })}
-
-        </Routes>
-      </BrowserRouter >
+        <BrowserRouter>
+          <Title />
+          <Routes>
+            {/* main page */}
+            <Route path='/' element={<RoomsMenu />}></Route>
+            {/* add room page */}
+            <Route path='/addroom' element={<AddRoom />}></Route>
+            {/* page for each room */}
+            {userRoomArr.map((room, id) => {
+              return (
+                <Route path={room.pathName} element={<OneRoom room={room} roomId={id} />}></Route>
+              )
+            })}
+          </Routes>
+        </BrowserRouter >
+      </Context.Provider >
     </div >
   );
 }

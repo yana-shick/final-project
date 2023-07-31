@@ -1,14 +1,19 @@
-import React from 'react';
-import Logo from './img/smart home.svg';
-import Sun from './img/sun.svg';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+
 
 export default function Title() {
     return (
         <div className="title">
-
-            <img src={Sun} alt=" HomeIcon" />
-            <img src={Logo} alt="LogoIcon" />
-
+            <div className='row'>
+                <div className="title-name col-12">
+                    <Link to='/'>
+                        <i class="bi bi-house-heart" >     </i>
+                        smart home
+                    </Link>
+                </div>
+            </div >
         </div >
     )
 }
