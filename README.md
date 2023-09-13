@@ -9,7 +9,7 @@ User creats room and add a smart devises that he can be turned on and off.
 
 ## Usage
 
-Designed for mobile only.
+Responsive
 
 ## Learning targets
 Learning react app, 
