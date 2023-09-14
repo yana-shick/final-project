@@ -24,7 +24,7 @@ export default function AddRoom() {
 		}
 		if (roomTypeInp != "" && roomNameInp.length >= 1) {
 			data.addRoomFunc(roomTypeInp, roomNameInp, roomColorInp);
-			nav("/final-project");
+			nav("/");
 		} else {
 			alert("please, fill form");
 		}

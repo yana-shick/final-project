@@ -108,11 +108,11 @@ function App() {
 	return (
 		<div className="App container p-4">
 			<Context.Provider value={data}>
-				<BrowserRouter>
+				<BrowserRouter basename="final-project">
 					<Title />
 					<Routes>
 						{/* main page */}
-						<Route path="/final-project" element={<RoomsMenu />}></Route>
+						<Route path="/" element={<RoomsMenu />}></Route>
 						{/* add room page */}
 						<Route path="/addroom" element={<AddRoom />}></Route>
 						{/* page for each room */}
