@@ -35,7 +35,7 @@ export default function AddRoom() {
 			<div className="add-room-menu container">
 				<div className="row justify-content-center g-4">
 					{/* select type of a room// must be */}
-					<div className="col col-sm-5 mx-5">
+					<div className="col col-sm-6 mx-5">
 						<select
 							className="form-select"
 							onChange={(e) => {
@@ -52,7 +52,7 @@ export default function AddRoom() {
 					</div>
 
 					{/* give a name to a room// must be */}
-					<div className="col col-sm-5 mx-5">
+					<div className="col col-sm-6 mx-5">
 						<input
 							className="form-control"
 							onChange={(e) => {
@@ -64,7 +64,7 @@ export default function AddRoom() {
 						/>
 					</div>
 					{/* define a color of a room// optional */}
-					<div className="col col-sm-5 mx-5">
+					<div className="col col-sm-6 mx-5">
 						<select
 							className="form-select"
 							onChange={(e) => {
